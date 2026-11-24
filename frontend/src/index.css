@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+  body { @apply bg-snow font-sans text-ink antialiased; text-rendering: optimizeLegibility; }
+  h1, h2, h3, h4 { @apply font-semibold tracking-tight text-ink; }
+  ::selection { background: #961E2D; color: #FFFAFA; }
+  :focus-visible { outline: 2px solid #961E2D; outline-offset: 3px; border-radius: 6px; }
+  img { @apply select-none; }
+}
+
+@layer components {
+  .container-page { @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10; }
+  .section-y { @apply py-20 sm:py-28; }
+  .eyebrow { @apply text-sm font-semibold text-red; }
+  .display-serif { @apply font-serif italic font-medium; }
+  .chip { @apply inline-flex items-center gap-1.5 rounded-full bg-quartz/40 px-3 py-1 text-xs font-medium text-deep; }
+  .field { @apply h-12 w-full rounded-full border border-quartz bg-white px-5 text-sm text-ink placeholder:text-grey transition focus:border-red focus:outline-none focus:ring-4 focus:ring-red/10; }
+}
+
+/* Skeleton shimmer */
+.skeleton { position: relative; overflow: hidden; background: rgba(206, 199, 187, 0.35); }
+.skeleton::after {
+  content: ''; position: absolute; inset: 0; transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 250, 250, 0.75), transparent);
+  animation: shimmer 1.4s infinite;
+}
+
+/* Safe area untuk bottom navigation (iOS) */
+.pb-safe { padding-bottom: max(0.5rem, env(safe-area-inset-bottom)); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .skeleton::after, .animate-ping2 { animation: none; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; }
+}

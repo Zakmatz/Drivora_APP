@@ -1,0 +1,21 @@
+{
+  "name": "drivora-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DRIVORA REST API (Express + Supabase) — read-only",
+  "type": "module",
+  "main": "src/index.js",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "dev:local": "DATA_SOURCE=local node --watch src/index.js",
+    "start": "node src/index.js",
+    "test": "node --test tests/*.test.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0"
+  }
+}

@@ -49,3 +49,16 @@ export function pagination(query, { defLimit = 12, maxLimit = 50 } = {}) {
 export const pageMeta = ({ page, limit }, total, extra = {}) => ({
   page, limit, total, totalPages: Math.max(1, Math.ceil(total / limit)), ...extra,
 });
+
+/** Validasi & pembersihan isi ulasan yang dikirim pengunjung. */
+export function reviewBody(body = {}) {
+  const clean = (v) => String(v ?? '').replace(/[\u0000-\u001F\u007F]/g, ' ').replace(/\s+/g, ' ').trim();
+  const name = clean(body.customer_name);
+  const comment = clean(body.comment);
+  const rating = Number(body.rating);
+
+  if (name.length < 2 || name.length > 60 || !/\p{L}/u.test(name)) throw bad('customer_name', 'Nama harus 2–60 karakter dan berisi huruf.');
+  if (!Number.isInteger(rating) || rating < 1 || rating > 5) throw bad('rating', 'Rating harus 1 sampai 5 bintang.');
+  if (comment.length < 10 || comment.length > 500) throw bad('comment', 'Ulasan harus 10–500 karakter.');
+  return { customer_name: name, rating, comment, driver_slug: slugParam(body.driver_slug, 'driver_slug') };
+}

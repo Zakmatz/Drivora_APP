@@ -17,6 +17,7 @@ export const api = {
   driver: (slug, signal) => get(`/drivers/${slug}`, {}, signal),
   driverReviews: (slug, params, signal) => get(`/drivers/${slug}/reviews`, params, signal),
   reviews: (params, signal) => get('/reviews', params, signal),
+  createReview: (payload) => http.post('/reviews', payload).then((r) => r.data),
 };
 
 /** Pesan error yang ramah untuk pengguna. */

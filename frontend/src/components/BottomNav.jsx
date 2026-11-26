@@ -1,12 +1,13 @@
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Home, Info, LayoutGrid, Users } from 'lucide-react';
+import { Home, Info, LayoutGrid, MessageSquareText, Users } from 'lucide-react';
 import { ease } from '../utils/motion.js';
 
 const items = [
   { to: '/', label: 'Home', icon: Home, end: true },
   { to: '/services', label: 'Services', icon: LayoutGrid },
   { to: '/drivers', label: 'Drivers', icon: Users },
+  { to: '/reviews', label: 'Reviews', icon: MessageSquareText },
   { to: '/about', label: 'About', icon: Info },
 ];
 

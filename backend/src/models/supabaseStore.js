@@ -70,3 +70,10 @@ export async function getReviewSummary({ driverId } = {}) {
   const { data } = check(await q.limit(10000));
   return summarizeRatings(data.map((r) => r.rating));
 }
+
+export async function createReview({ driverId, customerName, rating, comment, isPublished }) {
+  const { data } = check(await getSupabase().from('reviews')
+    .insert({ customer_name: customerName, driver_id: driverId, rating, comment, is_published: isPublished, is_demo: false })
+    .select('id').single());
+  return data;
+}

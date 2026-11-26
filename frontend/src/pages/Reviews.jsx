@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import PageHeader from '../components/PageHeader.jsx';
 import ReviewCard from '../components/ReviewCard.jsx';
+import ReviewForm from '../components/ReviewForm.jsx';
 import StarRating from '../components/StarRating.jsx';
 import SelectField from '../components/SelectField.jsx';
 import ErrorState, { EmptyState } from '../components/ErrorState.jsx';
@@ -41,6 +42,7 @@ export default function Reviews() {
   return (
     <>
       <PageHeader title="Apa kata pelanggan" description="Ringkasan penilaian dan ulasan untuk setiap pengemudi.">
+        <div className="mt-6"><Button href="#tulis-ulasan" variant="outline">Tulis ulasan</Button></div>
       </PageHeader>
 
       <section className="container-page pb-24">
@@ -89,6 +91,17 @@ export default function Reviews() {
         </div>
 
         {hasMore && <div className="mt-10 text-center"><Button variant="outline" onClick={() => setPage((p) => p + 1)} disabled={loading}>{loading ? 'Memuat…' : 'Muat lebih banyak'}</Button></div>}
+        <div id="tulis-ulasan" className="mx-auto mt-24 max-w-3xl scroll-mt-24">
+          <Reveal className="mb-8 text-center">
+            <h2 className="text-3xl sm:text-4xl">Bagikan pengalaman Anda</h2>
+            <p className="mt-3 text-base text-deep">Pernah menggunakan jasa pengemudi DRIVORA? Tulis ulasan Anda — tanpa perlu login.</p>
+          </Reveal>
+          <ReviewForm
+            drivers={driversReq.data?.data || []}
+            defaultDriver={driver}
+            onSubmitted={(r) => { if (r?.published) { if (page === 1) reload(); else setPage(1); } }}
+          />
+        </div>
       </section>
     </>
   );

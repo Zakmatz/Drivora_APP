@@ -83,3 +83,13 @@ export async function getReviewSummary({ driverId } = {}) {
   if (driverId) rows = rows.filter((r) => `drv-${r.driver_slug}` === driverId);
   return summarizeRatings(rows.map((r) => r.rating));
 }
+
+export async function createReview({ driverId, customerName, rating, comment, isPublished }) {
+  const { reviews } = load();
+  const row = {
+    id: `rev-${reviews.length + 1}`, customer_name: customerName, driver_slug: driverId.replace('drv-', ''),
+    rating, comment, review_date: new Date().toISOString().slice(0, 10), is_published: isPublished, is_demo: false,
+  };
+  reviews.push(row);
+  return { id: row.id };
+}

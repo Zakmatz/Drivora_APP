@@ -9,6 +9,9 @@ export function errorHandler(err, req, res, next) {
   if (err.type === 'entity.parse.failed') {
     return res.status(400).json({ success: false, error: { code: 'BAD_REQUEST', message: 'Permintaan tidak valid.' } });
   }
+  if (err.type === 'entity.too.large') {
+    return res.status(413).json({ success: false, error: { code: 'PAYLOAD_TOO_LARGE', message: 'Data yang dikirim terlalu besar.' } });
+  }
   console.error('[unhandled]', err);
   res.status(500).json({
     success: false,

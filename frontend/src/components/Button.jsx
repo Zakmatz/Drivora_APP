@@ -19,5 +19,5 @@ export default function Button({ to, href, variant = 'primary', size = 'md', ico
   );
   if (to) return <Link to={to} className={cls} {...rest}>{body}</Link>;
   if (href) return <a href={href} className={cls} {...rest}>{body}</a>;
-  return <button type="button" className={cls} {...rest}>{body}</button>;
+  return <button type={rest.type || 'button'} className={cls} {...rest}>{body}</button>;
 }

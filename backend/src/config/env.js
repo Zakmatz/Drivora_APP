@@ -11,4 +11,5 @@ export const env = {
   supabaseUrl: process.env.SUPABASE_URL,
   supabaseKey: process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY,
   dataSource: process.env.DATA_SOURCE || (process.env.SUPABASE_URL ? 'supabase' : 'local'),
+  autoPublishReviews: process.env.REVIEW_AUTO_PUBLISH === 'true',
 };

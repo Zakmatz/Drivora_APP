@@ -8,14 +8,18 @@ import { errorHandler } from './middleware/errorHandler.js';
 const app = express();
 app.disable('x-powered-by');
 
+app.set('trust proxy', 1); // di balik proxy Vercel, req.ip = IP pengunjung asli
+
 app.use(cors({
   origin(origin, cb) {
     // tanpa Origin (curl, server-to-server) atau origin yang diizinkan
     if (!origin || env.corsOrigins.includes('*') || env.corsOrigins.includes(origin)) return cb(null, true);
     return cb(null, false);
   },
-  methods: ['GET', 'HEAD', 'OPTIONS'],
+  methods: ['GET', 'HEAD', 'POST', 'OPTIONS'],
 }));
+
+app.use(express.json({ limit: '10kb' })); // batasi ukuran data yang dikirim
 
 app.use((req, res, next) => {
   res.set('X-Content-Type-Options', 'nosniff');

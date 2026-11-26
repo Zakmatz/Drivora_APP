@@ -57,7 +57,7 @@ export default defineConfig(({ mode }) => {
         },
       }),
     ],
-    server: { port: 5174, proxy },
+    server: { port: 5174, proxy, host: true },
     preview: { port: 4174, proxy },
   };
 });
